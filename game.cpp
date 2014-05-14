@@ -32,25 +32,39 @@ int Priest::dealDmg(){
 }
 
 void Priest::heal(){
-	this->hp += rand()%15;
+	this->hp += rand()%20;
 }
 
 int main () {
 	Warrior warr;
 	Priest pri;
 	
+	int round = 0;
 	/*
-	cout<<"pri.hp: "<<pri.hp<<endl;
-	pri.hp = pri.hp - warr.dealDmg();
-	cout<<"pri.hp: "<<pri.hp<<endl;
-	cout<<"warr.hp:"<<warr.hp<<endl;
-	warr.hp = warr.hp - pri.dealDmg();
-	cout<<"warr.hp"<<warr.hp<<endl;
+	char check='k';
 	
-
-	cout<<"pri.hp: "<<pri.hp;
-	pri.heal();
-	cout<<"pri.hp: "<<pri.hp;
+		cout<<"Are you ready to start the deathmatch? If so, press 'y'."<<endl;
+		cin>>check;
 	*/
+
+	while (pri.hp >0 && warr.hp>0){
+		pri.hp -= warr.dealDmg();
+		if (rand()%100+1 > pri.hp)
+			pri.heal();
+		else
+			warr.hp -= pri.dealDmg();
+
+	round++;
+	cout<<"warr hp: "<<warr.hp<<endl;
+	cout<<"pri hp: "<<pri.hp<<endl;
+	}
+	cout<<endl<<"The fight lasted for "<<round<<"rounds!"<<endl;
+	if (pri.hp <1 && warr.hp <1)
+		cout<<"Draw!";
+	else if (pri.hp <1)
+		cout<<"The warrior won!";
+	else
+		cout<<"The priest won!";
+	
 	return 0;
 }
